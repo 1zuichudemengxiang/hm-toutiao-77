@@ -1,0 +1,7 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+.el-card__body {
+  background-color: #ccc;
+}

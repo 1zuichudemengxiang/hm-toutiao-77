@@ -5,7 +5,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 // @是一个路径别名，src路径别名 在vue-cli创建的项目下才可是呀
 import router from '@/router'
 import '@/style/index.less'
-import axios from 'axios'
+import axios from '@/api'
 Vue.prototype.$http = axios
 
 Vue.use(ElementUI)

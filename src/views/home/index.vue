@@ -1,34 +1,37 @@
 <template>
     <el-container class="wrapper">
+        <!-- 这个是整体的菜单的大盒子，动态元素宽度，是element-ui提供的，如果再其他地方肯定不能用，默认为false的时候，即是展开状态，也就是宽度为200px -->
         <el-aside :width="isCollapse?'64px':'200px'">
             <div class="logo" :class="{minLogo:isCollapse}"></div>
-            <el-menu :collapse=isCollapse :collapse-transition="false" default-active="1" background-color="#002033"
-                text-color="#fff" active-text-color="#ffd04b">
-                <el-menu-item index="1">
+            <!-- minLogin（添加了一个小图片。为了切换的时候效果，想覆盖原来的背景图），是一个动态类绑定的类名。如果为false的话，-->
+            <el-menu :collapse=isCollapse :collapse-transition="false" :default-active="$route.path"
+                background-color="#002033" text-color="#fff" active-text-color="#ffd04b" router>
+                <!-- 是否使用vue-router的模式，启用该模式会在激活导航时以index作为path进行路由跳转，获取当前地址栏的路径，设置给default-active路径和菜单的index的值一致 -->
+                <el-menu-item index="/">
                     <i class="el-icon-s-home"></i>
                     <span slot="title">首页</span>
                 </el-menu-item>
-                <el-menu-item index="2">
+                <el-menu-item index="/article">
                     <i class="el-icon-document"></i>
                     <span slot="title">内容管理</span>
                 </el-menu-item>
-                <el-menu-item index="3">
+                <el-menu-item index="/image">
                     <i class="el-icon-picture"></i>
                     <span slot="title">素材管理</span>
                 </el-menu-item>
-                <el-menu-item index="4">
+                <el-menu-item index="/publish">
                     <i class="el-icon-s-promotion"></i>
                     <span slot="title">发布文章</span>
                 </el-menu-item>
-                <el-menu-item index="5">
+                <el-menu-item index="/comment">
                     <i class="el-icon-chat-dot-round"></i>
                     <span slot="title">评论管理</span>
                 </el-menu-item>
-                <el-menu-item index="6">
+                <el-menu-item index="/fans">
                     <i class="el-icon-present"></i>
                     <span slot="title">粉丝管理</span>
                 </el-menu-item>
-                <el-menu-item index="7">
+                <el-menu-item index="/setting">
                     <i class="el-icon-setting"></i>
                     <span slot="title">个人设置</span>
                 </el-menu-item>
@@ -51,7 +54,9 @@
                     </el-dropdown-menu>
                 </el-dropdown>
             </el-header>
-            <el-main>Main</el-main>
+            <el-main>
+                <router-view></router-view>
+            </el-main>
         </el-container>
     </el-container>
 </template>
@@ -59,10 +64,13 @@
 export default {
   data () {
     return {
+
       isCollapse: false
+      // 这里是第一步，写isCollapse，确定左边菜单展开还是收起，默认为false，是展开
     }
   },
   methods: {
+    // 给点击切换的按钮添加一个事件，如果是展开的话就收起，收起的话就展开
     toggleMenu () {
       this.isCollapse = !this.isCollapse
     }

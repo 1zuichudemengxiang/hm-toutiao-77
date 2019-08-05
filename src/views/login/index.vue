@@ -39,8 +39,8 @@ export default {
       // 表单数据
       // 如果说
       loginForm: {
-        mobile: '13111111111',
-        code: '246810'
+        mobile: '',
+        code: ''
       },
       // 所有表单数据的值一定要写在data里面，return里面，校验规则也要写在return里面
       // 表单校验规则数据
@@ -59,18 +59,25 @@ export default {
   methods: {
     login () {
       // 给登录按钮绑定一个点击事件的方法，写在methods里面，下一步就是获取两个输入框的值，然后如果有的话，就是发送请求到后端（看接口文档。发送的地址是什么，然后把参数（this.loginForm）跟到地址括号后面，then如果有值的话，那就跳转到首页。home页。path里面写/就行）
-      this.$refs.loginForm.validate((valid) => {
+      this.$refs.loginForm.validate(async valid => {
         if (valid) {
-          this.$http.post('http://ttapi.research.itcast.cn/mp/v1_0/authorizations', this.loginForm).then(res => {
-            // res 响应对象 包含响应体
-            // res.data
-            // 存储用户信息
-            store.setUser(res.data.data)
-            // 跳转去首页
-            this.$router.push('/').catch(() => {
-              this.$message.error('手机号或者验证码错误')
-            })
-          })
+          // this.$http.post('http://ttapi.research.itcast.cn/mp/v1_0/authorizations', this.loginForm).then(res => {
+          //   // res 响应对象 包含响应体
+          //   // res.data
+          //   // 存储用户信息
+          //   store.setUser(res.data.data)
+          //   // 跳转去首页
+          //   this.$router.push('/')
+          // }).catch(() => {
+          //   this.$message.error('手机号或者验证码错误')
+          // })
+          try {
+            const { data: { data } } = await this.$http.post('authorizations', this.loginForm)
+            store.setUser(data)
+            this.$router.push('/')
+          } catch (e) {
+            this.$message.error('手机号或者验证码错误')
+          }
         }
       })
     }

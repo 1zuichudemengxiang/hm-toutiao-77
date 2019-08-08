@@ -14,7 +14,7 @@
 <!-- 组件的 JavaScript -->
 <script>
 export default {
-  name: '',
+  name: 'MyTest',
   data () {
     return {
       msg: '作用域插槽'

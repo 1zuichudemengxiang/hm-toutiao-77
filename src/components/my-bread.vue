@@ -9,7 +9,7 @@
 <!-- 组件的 JavaScript -->
 <script>
 export default {
-  name: '',
+  name: 'MyBread',
   data () {
     return {}
   }

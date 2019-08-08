@@ -1,10 +1,21 @@
-// 配置一个aixos 导出一配置号的axios
+// 配置一个aixos 导出一配置好的axios
 import axios from 'axios'
 import store from '@/store'
 import router from '@/router'
+import JSONBig from 'json-bigint'
 
 // 进行配置
 axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0/'
+axios.defaults.transformResponse = [
+  (data) => {
+    // data此时就是后端的原始数据
+    try {
+      return JSONBig.parse(data)
+    } catch (e) {
+      return data
+    }
+  }
+]
 // 给每次的请求头加一个token
 // 下面这段代码只会执行一次
 // axios.defaults.headers = {

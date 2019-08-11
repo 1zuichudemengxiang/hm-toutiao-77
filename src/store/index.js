@@ -4,7 +4,12 @@
 const KEY = 'hm-toutiao-77-user'
 export default {
   setUser (user) {
-    window.sessionStorage.setItem(KEY, JSON.stringify(user))
+    // 存储信息到sessionStotage
+    // 现在实现，给什么存什么，完整替换
+    // 预期实现。局部修复一个属性信息
+    const localUser = this.getUser()
+    const nowUser = { ...localUser, ...user }
+    window.sessionStorage.setItem(KEY, JSON.stringify(nowUser))
   },
   getUser () {
     return JSON.parse(window.sessionStorage.getItem(KEY) || '{}')

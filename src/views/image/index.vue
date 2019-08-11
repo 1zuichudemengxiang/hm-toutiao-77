@@ -29,7 +29,7 @@
     <!-- 弹出对华框 -->
     <el-dialog title="添加素材" :visible.sync="dialogVisible" width="300px">
       <el-upload class="avatar-uploader" action="http://ttapi.research.itcast.cn/mp/v1_0/user/images"
-        :show-file-list="false" :on-success="handleSuccess" :header="uploadHeaders" name="image">
+        :show-file-list="false" :on-success="handleSuccess" :headers="uploadHeaders" name="image">
         <img v-if="imageUrl" :src="imageUrl" class="avatar">
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload>
@@ -93,7 +93,7 @@ export default {
     },
     //   上传成功的函数
     handleSuccess (res) {
-      console.log(res)
+      // console.log(res)
       this.imageUrl = res.data.url
       this.$message.success('上传成功')
       window.setTimeout(() => {
